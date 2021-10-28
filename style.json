@@ -1,5 +1,6 @@
 {
 "Text": {"font": "roboto"},
 "iobox": {"border": true, "margin": 5, "bgcolor": "red"},
-"button": {"cursor": 11, "border": true, "margin": 3, "border_width": 1}
+"button": {"cursor": 11, "border": true, "margin": 3, "border_width": 1},
+"general_config": {"bgcolor": [85, 110, 85], "color":"yellow"}
 }

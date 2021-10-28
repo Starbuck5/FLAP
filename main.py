@@ -14,8 +14,18 @@ pygame.freetype.init()
 
 FONT = pygame.freetype.Font(pgx.font.roboto.path)
 
-pgx.ui.use_stylesheet("style.json")
 pgx.path.set_projectpath("assets")
+pgx.ui.use_stylesheet("style.json")
+
+try:
+    BG_COLOR = pgx.ui.STYLESHEET.general_config.bgcolor
+except AttributeError:
+    BG_COLOR = [85, 110, 85]
+
+try:
+    NODE_COLOR = pgx.ui.STYLESHEET.general_config.color
+except AttributeError:
+    NODE_COLOR = "yellow"
 
 screen = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("PyFlap")
@@ -291,7 +301,7 @@ class Node:
             text = ", ".join(draw_dict[node])
             self._draw_connection(screen, position, text, node)
 
-        pygame.draw.circle(screen, "yellow", position, radius)
+        pygame.draw.circle(screen, NODE_COLOR, position, radius)
         pygame.draw.circle(screen, "black", position, radius, 2)
 
         if self.final:
@@ -381,7 +391,7 @@ while True:
     if pgx.key.is_pressed(pygame.K_d):
         machine.move(SCROLL_SPEED * pgx.time.delta_time, 0)
 
-    screen.fill((85, 110, 85))
+    screen.fill(BG_COLOR)
 
     machine.draw(screen)
 
