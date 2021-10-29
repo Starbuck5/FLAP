@@ -135,15 +135,15 @@ class TestMenu:
         if self.test_button.clicked:
             for i in range(len(self.inputs)):
                 input_box = self.inputs[i]
-                if input_box.text:
-                    output = self.machine.test(input_box.text)
-                    output_box = self.outputs[i]
-                    output_box.text = str(output)
+                #if input_box.text:
+                output = self.machine.test(input_box.text)
+                output_box = self.outputs[i]
+                output_box.text = str(output)
 
-                    rev = "".join(reversed(list(input_box.text)))
-                    routput = self.machine.test(rev)
-                    routput_box = self.routputs[i]
-                    routput_box.text = str(routput)
+                rev = "".join(reversed(list(input_box.text)))
+                routput = self.machine.test(rev)
+                routput_box = self.routputs[i]
+                routput_box.text = str(routput)
 
 
 class InfoOutput:
