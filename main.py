@@ -29,7 +29,9 @@ except AttributeError:
 
 screen = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("PyFlap")
-pygame.display.set_icon(pgx.image.load("node.png"))
+surf = pgx.image.load("node.bmp")
+surf.set_colorkey("white")
+pygame.display.set_icon(surf)
 
 
 class NFAError(NotImplementedError):
@@ -310,13 +312,16 @@ class Node:
 
 machine = DFA()
 
-surf = pgx.image.load("node.png")
+surf = pgx.image.load("node.bmp")
+surf.set_colorkey("white")
 place_button = pgx.ui.Image(surf, (10, 5), groups=["button"])
 
-surf = pgx.image.load("arrow.png")
+surf = pgx.image.load("arrow.bmp")
+surf.set_colorkey("white")
 connect_button = pgx.ui.Image(surf, (60, 5), groups=["button"])
 
-surf = pgx.image.load("x.png")
+surf = pgx.image.load("x.bmp")
+surf.set_colorkey("white")
 del_button = pgx.ui.Image(surf, (110, 5), groups=["button"])
 
 welcome = pgx.ui.Text("Welcome to PyFlap!", (screen.get_width() / 2, 5))
