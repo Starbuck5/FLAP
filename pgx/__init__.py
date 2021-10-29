@@ -13,9 +13,6 @@ from pgx.File import File
 from pgx.Rect import Rect
 import pgx.image
 
-# Rarely used, but hopefully useful utilities
-from pgx.compiler import compiler
-
 # UI system
 from pgx.font import font
 from pgx.Text import Text
