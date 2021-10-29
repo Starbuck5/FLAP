@@ -23,14 +23,21 @@ class font:
         font.classic = font._create_font_classic()
 
     def _load_font(name):
-        return font.Font(path.handle(f"fonts/{name}/{name}.ttf", True))
+        try:
+            f = font.Font(path.handle(f"fonts/{name}/{name}.ttf", True))
+        except FileNotFoundError:
+            f = font.Font(None)
+        return f
 
     @staticmethod
     def _create_font_classic():
         char_index = list(
             "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`{|}~"
         )
-        font_sheet = pygame.image.load(path.handle("fonts\\classic\\font.bmp", True))
+        try:
+            font_sheet = pygame.image.load(path.handle("fonts\\classic\\font.bmp", True))
+        except FileNotFoundError:
+            return font.Font(None)
         char_list = image.break_sprite(font_sheet, 8, 13, 2, 2, 4, 17)
         char_image = dict(zip(char_index, char_list))
 
@@ -57,7 +64,10 @@ class font:
 
     class Font:
         def __init__(self, filepath):
-            self.path = path.handle(filepath)
+            if filepath == None:
+                self.path = None
+            else:
+                self.path = path.handle(filepath)
             self._font = pygame.freetype.Font(self.path)
 
             # used by get_metrics(), which requires setting attributes
