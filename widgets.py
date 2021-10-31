@@ -135,7 +135,7 @@ class TestMenu:
         if self.test_button.clicked:
             for i in range(len(self.inputs)):
                 input_box = self.inputs[i]
-                #if input_box.text:
+                # if input_box.text:
                 output = self.machine.test(input_box.text)
                 output_box = self.outputs[i]
                 output_box.text = str(output)

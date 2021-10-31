@@ -5,8 +5,13 @@ from typing import Union
 import pygame
 import pygame.freetype
 
+# pgx is my custom pygame engine / expansion library
+# It's the reason this project is over 4000 lines of code, even though that
+# would be crazy for a project on this timescale
 import pgx
 
+# some more custom UI elements specific to this project were moved
+# into their own file
 from widgets import NodeMenu, TestMenu, InfoOutput
 
 pygame.init()
@@ -17,6 +22,8 @@ FONT = pygame.freetype.Font(pgx.font.roboto.path)
 pgx.path.set_projectpath("assets")
 pgx.ui.use_stylesheet("style.json")
 
+# Set the node color and screen background color from the config stylesheet
+# if it fails for some reason, the defaults are provided
 try:
     BG_COLOR = pgx.ui.STYLESHEET.general_config.bgcolor
 except AttributeError:
@@ -38,6 +45,8 @@ class NFAError(NotImplementedError):
     pass
 
 
+# The DFA class provides the logical and graphical functionality for the
+# building and testing the machine.
 class DFA:
     def __init__(self):
         self.nodes = []
@@ -163,6 +172,9 @@ class DFA:
         return False
 
 
+# The Node class provides logical functionality (a state, transitions),
+# but most of the complexity is with it's graphical functionality, especially
+# drawing the transitions, which was challenging to do right
 class Node:
     radius = 25
 
@@ -328,6 +340,8 @@ welcome = pgx.ui.Text("Welcome to PyFlap!", (screen.get_width() / 2, 5))
 welcome.style.align = pygame.Vector2(0.5, 0)
 welcome.style.font_size = 26
 
+# overrides python's print function with a custom function that displays
+# output on the screen itself, for 5 seconds, then vanishes
 info = InfoOutput()
 print = info.print
 
@@ -344,6 +358,10 @@ MOUSE_HELD = False
 while True:
     hovered_node = machine.get_node_at(pygame.mouse.get_pos())
 
+    # The event queue is a mess, but it is the "core" of the app. It implements
+    # switching between various modes that lead the user to be able to do
+    # different things. It does this by dealing with MOUSEBUTTONDOWN and
+    # MOUSEBUTTONUP events, primarily
     for event in pgx.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -424,5 +442,6 @@ while True:
 
     info.display()
 
+    # updates the display, limits framerate to 144 FPS
     pygame.display.flip()
     pgx.tick(144)

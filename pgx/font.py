@@ -35,7 +35,9 @@ class font:
             "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`{|}~"
         )
         try:
-            font_sheet = pygame.image.load(path.handle("fonts\\classic\\font.bmp", True))
+            font_sheet = pygame.image.load(
+                path.handle("fonts\\classic\\font.bmp", True)
+            )
         except FileNotFoundError:
             return font.Font(None)
         char_list = image.break_sprite(font_sheet, 8, 13, 2, 2, 4, 17)
